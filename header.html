@@ -1,0 +1,40 @@
+<header class="top-bar">
+  <div class="site-title">Beyon The Rank</div>
+
+  <form class="search-form" role="search" onsubmit="handleSearch(event)">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Search username..."
+      id="searchQuery"
+    />
+    <button type="submit" class="search-btn">
+      <i class="bi bi-search"></i>
+    </button>
+  </form>
+
+  <div class="icon-group">
+    <i class="bi bi-bookmark"></i>
+    <div class="dropdown">
+      <i class="bi bi-list menu-icon" onclick="toggleDropdown()"></i>
+      <div class="dropdown-menu" id="dropdownMenu">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="#">Teams</a>
+        <a href="settings.html">Settings</a>
+        <a href="#">Help</a>
+        <a href="#">Logout</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-bar">
+  <ul>
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="hall_of_fame.html">Hall of Fame</a></li>
+    <li><a href="contest.html">Contest</a></li>
+    <li><a href="news.html">News</a></li>
+    <li><a href="learning.html">Learning</a></li>
+  </ul>
+</nav>

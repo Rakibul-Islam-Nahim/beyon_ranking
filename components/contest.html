@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contest</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
+    <div id="common-header"></div>
+
+    <h1 class="contest-heading">⚔️ Upcoming & Popular Contests</h1>
+
+    <div class="card-container">
+      <a
+        href="https://www.hackthebox.com/"
+        target="_blank"
+        class="contest-card"
+      >
+        <img src="https://shorturl.at/bzPvy" alt="Hack The Box" />
+        <div class="contest-content">
+          <div class="contest-title">Hack The Box</div>
+          <div class="contest-desc">
+            A platform to test and advance your skills in penetration testing
+            and cyber security.
+          </div>
+        </div>
+      </a>
+
+      <a href="https://ctftime.org/" target="_blank" class="contest-card">
+        <img src="https://shorturl.at/CiUvT" alt="CTFtime" />
+        <div class="contest-content">
+          <div class="contest-title">CTFtime</div>
+          <div class="contest-desc">
+            The hub of all major Capture The Flag contests worldwide. Stay
+            updated and ranked.
+          </div>
+        </div>
+      </a>
+
+      <a href="https://codeforces.com/" target="_blank" class="contest-card">
+        <img
+          src="https://sta.codeforces.com/s/20185/images/codeforces-logo-with-telegram.png"
+          alt="Codeforces"
+        />
+        <div class="contest-content">
+          <div class="contest-title">Codeforces</div>
+          <div class="contest-desc">
+            Join weekly programming contests that challenge your logic and
+            algorithmic thinking.
+          </div>
+        </div>
+      </a>
+
+      <a
+        href="https://leetcode.com/contest/"
+        target="_blank"
+        class="contest-card"
+      >
+        <img
+          src="https://assets.leetcode.com/static_assets/public/icons/favicon-96x96.png"
+          alt="LeetCode"
+        />
+        <div class="contest-content">
+          <div class="contest-title">LeetCode Weekly</div>
+          <div class="contest-desc">
+            Improve your coding interview prep and problem-solving through
+            weekly coding contests.
+          </div>
+        </div>
+      </a>
+
+      <a
+        href="https://www.kaggle.com/competitions"
+        target="_blank"
+        class="contest-card"
+      >
+        <img
+          src="https://www.kaggle.com/static/images/site-logo.png"
+          alt="Kaggle"
+        />
+        <div class="contest-content">
+          <div class="contest-title">Kaggle Competitions</div>
+          <div class="contest-desc">
+            Data science and machine learning contests hosted by real companies
+            and organizations.
+          </div>
+        </div>
+      </a>
+
+      <a href="https://toph.co/contests" target="_blank" class="contest-card">
+        <img
+          src="https://static.toph.co/images/promo/trophy.png?_=bb9668fff84e35cf5bb4788c36fa919e428fd6b1"
+          alt="Toph"
+        />
+        <div class="contest-content">
+          <div class="contest-title">Toph Contests</div>
+          <div class="contest-desc">
+            Bangladeshi competitive programming platform hosting local and
+            national contests.
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <script>
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("loader");
+        if (loader) {
+          loader.classList.add("hidden");
+          setTimeout(() => loader.remove(), 5000);
+        }
+      });
+    </script>
+    <script src="../script.js"></script>
+  </body>
+</html>

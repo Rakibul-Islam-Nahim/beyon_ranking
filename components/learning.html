@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaning</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
+    <div id="common-header"></div>
+
+    <!-- <main class="learning"> -->
+      <section class="learning-page">
+        <h1 class="learning-title">📚 Welcome to the Learning Hub</h1>
+        <p class="learning-subtitle">
+          Start your journey with the right resources — handpicked for growth!
+        </p>
+
+        <div class="learning-grid">
+          <!-- Web Development -->
+          <div class="learn-card">
+            <h2>🌐 Web Development</h2>
+            <p>
+              Build modern websites using HTML, CSS, JavaScript, React, and
+              Node.js.
+            </p>
+            <ul>
+              <li>
+                <a href="https://www.freecodecamp.org/learn" target="_blank"
+                  >freeCodeCamp – Full Web Curriculum</a
+                >
+              </li>
+              <li>
+                <a href="https://developer.mozilla.org/en-US/" target="_blank"
+                  >MDN Web Docs – HTML/CSS/JS</a
+                >
+              </li>
+              <li>
+                <a href="https://reactjs.org/" target="_blank"
+                  >React Official Docs</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Cybersecurity -->
+          <div class="learn-card">
+            <h2>🛡️ Cyber Security</h2>
+            <p>
+              Learn ethical hacking, digital forensics, and how to protect
+              systems.
+            </p>
+            <ul>
+              <li>
+                <a href="https://www.hackthebox.com/academy" target="_blank"
+                  >Hack The Box Academy</a
+                >
+              </li>
+              <li>
+                <a href="https://tryhackme.com/" target="_blank"
+                  >TryHackMe Learning Paths</a
+                >
+              </li>
+              <li>
+                <a href="https://owasp.org/" target="_blank">OWASP Top 10</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- DSA & CP -->
+          <div class="learn-card">
+            <h2>🧠 DSA & Competitive Programming</h2>
+            <p>
+              Boost your problem-solving skills with structured DSA and
+              contests.
+            </p>
+            <ul>
+              <li>
+                <a
+                  href="https://www.geeksforgeeks.org/data-structures/"
+                  target="_blank"
+                  >GFG – Data Structures</a
+                >
+              </li>
+              <li>
+                <a href="https://cp-algorithms.com/" target="_blank"
+                  >CP Algorithms</a
+                >
+              </li>
+              <li>
+                <a href="https://leetcode.com/" target="_blank"
+                  >LeetCode Practice</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- DevOps -->
+          <div class="learn-card">
+            <h2>⚙️ DevOps & Deployment</h2>
+            <p>
+              Learn how to deploy, monitor, and scale web apps using CI/CD,
+              Docker, etc.
+            </p>
+            <ul>
+              <li>
+                <a href="https://roadmap.sh/devops" target="_blank"
+                  >DevOps Roadmap</a
+                >
+              </li>
+              <li>
+                <a href="https://docs.docker.com/get-started/" target="_blank"
+                  >Docker – Get Started</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.youtube.com/c/TechWorldwithNana"
+                  target="_blank"
+                  >TechWorld with Nana – YouTube</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("loader");
+        if (loader) {
+          loader.classList.add("hidden");
+          setTimeout(() => loader.remove(), 5000);
+        }
+      });
+    </script>
+    <script src="../script.js"></script>
+  </body>
+</html>

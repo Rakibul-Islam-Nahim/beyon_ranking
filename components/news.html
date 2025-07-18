@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Updated News</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
+    <div id="common-header"></div>
+    <!-- Inside your news.html -->
+    <div id="news-section" style="padding-left: 50px; padding-right: 10px">
+      <h1 class="news-heading">📰 Cyber Security News</h1>
+      <div id="news-feed" class="news-feed"></div>
+    </div>
+
+    <script>
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("loader");
+        if (loader) {
+          loader.classList.add("hidden");
+          setTimeout(() => loader.remove(), 5000);
+        }
+      });
+    </script>
+    <!-- SCRIPT FOR LOADING API NEWS -->
+    <script>
+      const apiKey = "pub_f1bd8b455ac24206b13dda9f115d285c";
+
+      fetch(
+        `https://newsdata.io/api/1/news?apikey=${apiKey}&q=cybersecurity&language=en`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          const container = document.getElementById("news-feed");
+          data.results.slice(0, 10).forEach((article) => {
+            const div = document.createElement("div");
+            div.className = "news-card";
+            div.innerHTML = `
+          <h3>${article.title}</h3>
+          <p>${article.description || "No description available."}</p>
+          <a href="${article.link}" target="_blank">Read More →</a>
+        `;
+            container.appendChild(div);
+          });
+        })
+        .catch((err) => {
+          document.getElementById("news-feed").innerHTML =
+            "<p>Failed to load news.</p>";
+          console.error("News fetch error:", err);
+        });
+    </script>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
