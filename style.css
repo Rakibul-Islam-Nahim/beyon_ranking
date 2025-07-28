@@ -638,3 +638,19 @@ input[type="tel"] {
   background-color: #666;
 }
 /* ========================================== */
+
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: #ff4c60;
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  display: block;
+  padding: 10px 15px;
+}
+.nav-btn:hover {
+  background: #222;
+}

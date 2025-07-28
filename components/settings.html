@@ -1,75 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Beyon The Rank</title>
-    <link rel="stylesheet" href="../style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-    />
-  </head>
-  <body>
-    <div id="loader">
-      <div class="spinner"></div>
+<head>
+  <meta charset="UTF-8">
+  <title>Settings | Beyon The Rank</title>
+  <link rel="stylesheet" href="../style.css">
+  <!-- You may add Bootstrap-icons or similar here if used elsewhere -->
+</head>
+<body>
+  <div id="common-header"></div>
+  <div class="settings-container">
+    <h2>Settings</h2>
+    <div class="profile-preview">
+      <img
+        src="https://i.ytimg.com/vi/vH8kYVahdrU/maxresdefault.jpg"
+        alt="Profile"
+        class="profile-view-setting"
+        id="profileImagePreview"
+        title="Click to change profile picture"
+        tabindex="0"
+        style="cursor: pointer;"
+      />
+      <input type="file" id="profileImageInput" accept="image/*" style="display:none;" />
+      <button id="imgInput" type="button">Change Profile</button>
     </div>
-    <div id="common-header"></div>
-    <div class="settings-container">
-      <h2><i class="bi bi-gear-fill"></i> Settings</h2>
-
-      <div class="profile-preview">
-        <img
-          src="https://i.ytimg.com/vi/vH8kYVahdrU/maxresdefault.jpg"
-          alt="Profile"
-          class="profile-view-setting"
-        />
-        <button>Change Profile</button>
-      </div>
-
+    <form id="settingsForm" class="settings-form">
       <div class="form-group">
-        <label for="username">Name</label>
-        <input type="text" id="username" placeholder="Enter your name" />
+        <label for="name">Name</label>
+        <input required type="text" id="name" name="name">
       </div>
-
       <div class="form-group">
         <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="Enter your email" />
+        <input required type="email" id="email" name="email">
       </div>
-
       <div class="form-group">
-        <label for="phone">Mobile Number</label>
-        <input type="tel" id="phone" placeholder="Enter mobile number" />
+        <label for="mobile">Mobile Number</label>
+        <input required type="tel" id="mobile" name="mobile" pattern="\+880[0-9]{10}" title="Enter a valid mobile starting with +880">
       </div>
-
       <div class="form-group">
-        <label for="password">New Password</label>
-        <input type="password" id="password" placeholder="Enter new password" />
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" name="newPassword" minlength="6" placeholder="Leave blank to keep current password">
       </div>
-
       <div class="form-group">
-        <label for="confirm-password">Confirm Password</label>
-        <input
-          type="password"
-          id="confirm-password"
-          placeholder="Confirm new password"
-        />
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" minlength="6" placeholder="Leave blank to keep current password">
       </div>
-
       <div class="btn-group">
-        <button class="btn-cancel">Cancel</button>
-        <button class="btn-save">Save Changes</button>
+        <button type="button" id="cancelBtn" class="btn-cancel">Cancel</button>
+        <button type="submit" id="saveBtn" class="btn-save">Save Changes</button>
       </div>
-    </div>
-    <script>
-      window.addEventListener("load", () => {
-        const loader = document.getElementById("loader");
-        if (loader) {
-          loader.classList.add("hidden");
-          setTimeout(() => loader.remove(), 5000);
+      <div id="settingsError" class="register-error" style="display:none;"></div>
+    </form>
+  </div>
+  <script src="../script.js"></script>
+  <script>
+    // Autofill form with current user info
+    window.addEventListener('DOMContentLoaded', () => {
+      if (typeof loadHeader === "function") loadHeader();
+      fetch('/api/user/settings', { credentials: 'same-origin' })
+        .then(res => res.json())
+        .then(data => {
+          if (data.name) document.getElementById('name').value = data.name;
+          if (data.email) document.getElementById('email').value = data.email;
+          if (data.mobile) document.getElementById('mobile').value = data.mobile;
+          const img = document.getElementById('profileImagePreview');
+          img.src = (data.profile_img) ? '/uploads/' + data.profile_img : 'https://i.ytimg.com/vi/vH8kYVahdrU/maxresdefault.jpg';
+        });
+
+      // Open file dialog on button click
+      document.getElementById('imgInput').onclick = function() {
+        document.getElementById('profileImageInput').click();
+      };
+      
+      // Upload profile image and update preview
+      document.getElementById('profileImageInput').onchange = async function() {
+        const file = this.files[0];
+        if (!file) return;
+        const formData = new FormData();
+        formData.append('profile_img', file);
+        const resp = await fetch('/api/user/profile_img', { method: 'POST', body: formData });
+        const data = await resp.json();
+        if (data.success) {
+          document.getElementById('profileImagePreview').src = '/uploads/' + data.filename + '?v=' + Date.now();
+        } else {
+          alert(data.error || "Image upload failed.");
         }
-      });
-    </script>
-    <script src="../script.js"></script>
-  </body>
+      };
+
+      // Save changes
+      document.getElementById('settingsForm').onsubmit = async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const errorDiv = document.getElementById('settingsError');
+        errorDiv.style.display = 'none';
+        errorDiv.textContent = '';
+        const body = {
+          name: form.name.value,
+          email: form.email.value,
+          mobile: form.mobile.value,
+          newPassword: form.newPassword.value,
+          confirmPassword: form.confirmPassword.value,
+        };
+        try {
+          const resp = await fetch('/api/user/settings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          });
+          const data = await resp.json();
+          if (resp.ok && data.success) {
+            alert('Profile updated!');
+            form.newPassword.value = '';
+            form.confirmPassword.value = '';
+            errorDiv.style.display = 'none';
+          } else {
+            errorDiv.textContent = (data && data.error) || "Failed to update profile.";
+            errorDiv.style.display = 'block';
+          }
+        } catch (err) {
+          errorDiv.textContent = "Network or server error.";
+          errorDiv.style.display = 'block';
+        }
+      };
+
+      // Cancel reloads the form to last saved state
+      document.getElementById('cancelBtn').onclick = function() {
+        window.location.reload();
+      };
+    });
+  </script>
+</body>
 </html>

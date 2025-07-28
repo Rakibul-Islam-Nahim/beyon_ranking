@@ -1,0 +1,19 @@
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email" : "tanjiulhasib@gmail.com",
+    "password" : "cuetcdi"
+}
+
+###
+
+GET http://localhost:3000/api/user/me
+
+###
+
+POST http://localhost:3000/logout
+
+###
+
+GET http://localhost:3000/api/auth/status

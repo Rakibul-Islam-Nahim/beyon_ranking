@@ -27,9 +27,9 @@
             class="profile-img"
           />
           <div class="contact-info-container">
-            <p class="contact-name">PewPew Meow</p>
-            <p class="contact-info">📱 +8801234567890</p>
-            <p class="contact-info">📧 user@example.com</p>
+            <p class="contact-name" id="user-name">PewPew Meow</p>
+            <p class="contact-info" id="user-mobile">📱 +8801234567890</p>
+            <p class="contact-info" id="user-email">📧 user@example.com</p>
           </div>
         </div>
         <div class="status-grid">
@@ -65,6 +65,36 @@
           setTimeout(() => loader.remove(), 5000);
         }
       });
+
+      async function loadUserProfile() {
+        try {
+          const resp = await fetch("http://localhost:3000/api/user/me", {
+            credentials: "include", // ⬅️ required
+          });
+          if (!resp.ok) {
+            document.getElementById("user-name").textContent = "Tanjiul Hasib";
+            document.getElementById("user-mobile").textContent = "01722322105";
+            document.getElementById("user-email").textContent =
+              "tanjiulhasib@gmail.com";
+            return;
+          }
+          const user = await resp.json();
+          document.getElementById("user-name").textContent = user.name;
+          document.getElementById("user-mobile").textContent =
+            "📱 " + user.mobile;
+          document.getElementById("user-email").textContent =
+            "📧 " + user.email;
+          document.querySelector(".profile-img").src = user.profile_img
+            ? "/uploads/" + user.profile_img
+            : "https://i.ytimg.com/vi/vH8kYVahdrU/maxresdefault.jpg";
+        } catch (e) {
+          document.getElementById("user-name").textContent =
+            "Error loading profile";
+          document.getElementById("user-mobile").textContent = "";
+          document.getElementById("user-email").textContent = "";
+        }
+      }
+      document.addEventListener("DOMContentLoaded", loadUserProfile);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../script.js"></script>
